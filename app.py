@@ -11,7 +11,7 @@ app.config["UPLOAD_FOLDER"] = "uploads"
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
+model = SentenceTransformer("paraphrase-MiniLM-L3-v2")
 
 def extract_text_from_pdf(pdf_path):
     text = ""
@@ -49,4 +49,6 @@ def index():
     return render_template("index.html", score=None)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # use PORT env if set, else 5000
+    app.run(host="0.0.0.0", port=port)
+    app.run(debug=False)
